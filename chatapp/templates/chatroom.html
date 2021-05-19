@@ -18,26 +18,25 @@
         </div>
     </nav>
     <div class="container mt-3">
-        <div class="input-group mb-2">
+        <div class="input-group mb-3">
             <textarea class="form-control" id="chat-text" cols="100" rows="20"></textarea></br>
         </div>
-        <div class="input-group mb-2">
+        <div class="input-group mb-3">
             <input placeholder="send a message ..." type="input" class="form-control" id="input" size="80" />
         </div>
-        <div class="input-group mb-2">
-            <input class="btn btn-primary mb-2" type="submit" id="submit" value="send" /></br>
+        <div class="d-grid gap-2">
+            <input class="btn btn-primary btn-lg btn-block mb-2" type="submit" id="submit" value="send" /></br>
         </div>
-
     </div>
 
 
     {{room_name|json_script:"room-name"}}
     <script>
-        document.getElementById("submit").onclick = function(e){
+        document.getElementById("submit").onclick = function (e) {
             const inputDom = document.querySelector("#input");
             const message = inputDom.value;
             chatSocket.send(JSON.stringify({
-                'message':message
+                'message': message
             }));
             inputDom.value = ''
         }
@@ -56,7 +55,7 @@
         chatSocket.onmessage = function (e) {
             console.log(e.data.toString());
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-text').value += data.message +'\n'
+            document.querySelector('#chat-text').value += data.message + '\n'
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
