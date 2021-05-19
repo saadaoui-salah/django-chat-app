@@ -11,16 +11,17 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         )
 
         await self.accept()
-        
+
         await self.channel_layer.group_send(
             self.room_group_name,
             {
-                'type':'tester_message',
+                'type':"chat.message",
                 'tester':'message',
             }
         )
 
-    async def tester_message(self, event):
+    async def chat_message(self, event):
+        print("tester")
         tester = event['tester']
         await self.send(text_data=json.dumps({
             'tester': tester
@@ -31,3 +32,16 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.room_name,    
         )
+    
+    async def receive(self, text_data):
+        message_json = json.loads(text_data)
+        message = message_json['message']
+        print(message)
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                'type':'chat.message',
+                'message':message
+            }
+        )
+        pass

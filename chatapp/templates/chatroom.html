@@ -12,12 +12,35 @@
 </head>
 
 <body>
-    <div id="message">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <h2 class="navbar-brand">Chat Room</h2>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        <textarea id="chat-text" cols="80" rows="30"></textarea></br>
+        <div class="input-group mb-2">
+            <input placeholder="send a message ..." type="input" class="form-control" id="input" size="80" />
+        </div>
+        <input class="btn btn-primary mb-2" type="submit" id="submit" value="send" /></br>
 
     </div>
-    {{room_name|json_script:"room-name"}}
 
+
+    {{room_name|json_script:"room-name"}}
     <script>
+        document.getElementById("submit").onclick = function(e){
+            const inputDom = document.querySelector("#input");
+            const message = inputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message':message
+            }));
+            inputDom.value = ''
+        }
+
+
+
+
         const roomName = JSON.parse(document.getElementById("room-name").textContent)
         const chatSocket = new WebSocket(
             'ws://' +
@@ -26,9 +49,9 @@
             roomName +
             '/'
         );
-        chatSocket.onmessage = function(e){
+        chatSocket.onmessage = function (e) {
+            console.log(e.data.toString())
             const data = JSON.parse(e.data);
-            console.log(data)
             document.querySelector('#message').innerHTML = data.tester
         }
     </script>

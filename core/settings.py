@@ -129,6 +129,6 @@ ASGI_APPLICATION = 'core.routing.application'
 # for comunication btw django and channels
 CHANNEL_LAYERS = {
     "default":{
-        "BACKEND": "channems.layers.InMemoryChannelLayer"
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
