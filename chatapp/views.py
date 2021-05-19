@@ -1,7 +1,12 @@
 from django.shortcuts import render
 
 def index(request):
-    pass
+
+
+    context  = {}
+    return render(request, "index.html", context)
 
 def room(request):
-    pass
+    context  = {}
+    return render(request, "index.html", context)
+
