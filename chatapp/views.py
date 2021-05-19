@@ -8,5 +8,5 @@ def index(request):
 
 def room(request, room_name):
     context  = {"room_name":room_name}
-    return render(request, "index.html", context)
+    return render(request, "chatroom.html", context)
 
