@@ -31,20 +31,21 @@
 
 
     {{room_name|json_script:"room-name"}}
+    {{request.user.username|json_script:"username"}}
     <script>
         document.getElementById("submit").onclick = function (e) {
             const inputDom = document.querySelector("#input");
             const message = inputDom.value;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'username':username
             }));
+            console.log(message);
             inputDom.value = ''
         }
 
-
-
-
         const roomName = JSON.parse(document.getElementById("room-name").textContent)
+        const username= JSON.parse(document.getElementById("username").textContent)
         const chatSocket = new WebSocket(
             'ws://' +
             window.location.host +
