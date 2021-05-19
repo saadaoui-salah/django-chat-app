@@ -1,3 +1,4 @@
 /env
 /db.sqlite3
 /chatapp/__pycache__
+/core/__pycache__
