@@ -9,6 +9,9 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.room_name,
         )
+
+        await self.accept()
+        
         await self.channel_layer.group_send(
             self.room_group_name,
             {

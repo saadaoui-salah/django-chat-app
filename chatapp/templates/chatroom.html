@@ -12,18 +12,25 @@
 </head>
 
 <body>
+    <div id="message">
 
+    </div>
     {{room_name|json_script:"room-name"}}
 
     <script>
-        const websocket = new Websocket(
+        const roomName = JSON.parse(document.getElementById("room-name").textContent)
+        const chatSocket = new Websocket(
             'ws://' +
             window.location.host +
             '/ws/chat/' +
             roomName +
             '/'
         );
-
+        chatSocket.onmessage = function(e){
+            const data = JSON.parse(e.data);
+            console.log(data)
+            document.querySelector('#message').innerHTML = data.tester
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
